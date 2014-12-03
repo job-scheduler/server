@@ -4,18 +4,16 @@ namespace JobScheduler;
 
 class Job
 {
-    private $dbname;
-    private $command;
-    private $identifier;
-    private $parameters;
-    private $cronexpression;
-    private $scheduledstamp;
-    private $executionstamp;
-    private $key;
+    protected $command;
+    protected $identifier;
+    protected $parameters;
+    protected $cronexpression;
+    protected $scheduledstamp;
+    protected $executionstamp;
+    protected $key;
 
-    public function __construct($dbname, $command, $identifier)
+    public function __construct($command, $identifier)
     {
-        $this->dbname = $dbname;
         $this->command = $command;
         $this->identifier = $identifier;
     }
@@ -78,27 +76,5 @@ class Job
     public function getKey()
     {
         return $this->key;
-    }
-
-    public function save()
-    {
-        $db = Utils::getDatabase();
-        
-        $job = Utils::get($this->dbname, $this->command, $this->identifier);
-        if ($job) {
-            $job = Record::createByUuid($db->getName().'.job', $this->key);
-        } else {
-            $job = Record::createNew($db->getName().'.job');
-        }
-
-        $job->dbname = $this->dbname;
-        $job->command = $this->command;
-        $job->identifier = $this->identifier;
-        $job->parameters = $this->parameters;
-        $job->cronexpression = $this->cronexpression;
-        $job->scheduledstamp = $this->scheduledstamp;
-        $job->executionstamp = $this->executionstamp;
-        $job->save();
-        return $job;
     }
 }
