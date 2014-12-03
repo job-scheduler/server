@@ -23,6 +23,11 @@ class Job
         return $this->identifier;
     }
 
+    public function getCommand()
+    {
+        return $this->command;
+    }
+
     public function setParameters($parameters)
     {
         $this->parameters = $parameters;
