@@ -14,7 +14,9 @@
     "require": {
         "symfony/console": "~2.4",
         "mtdowling/cron-expression": "1.0.*",
-        "linkorb/database-manager": "dev-master"
+        "linkorb/database-manager": "dev-master",
+        "doctrine/orm": "2.4.*",
+        "symfony/yaml": "2.*"
     },
     "require-dev": {
         "phpspec/phpspec": "2.1.*@dev",
