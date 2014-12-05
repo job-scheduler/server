@@ -2,6 +2,7 @@
 // bootstrap.php
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Yaml\Yaml;
 
 require_once __DIR__."/../vendor/autoload.php";
 
@@ -13,13 +14,7 @@ $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/../src/En
 // $config = Setup::createYAMLMetadataConfiguration(array(__DIR__."/yaml"), $isDevMode);
 
 // database configuration parameters
-$conn = array(
-    'driver' => 'pdo_mysql',
-    'host' => 'localhost',
-    'dbname' => 'jobs',
-    'user' => 'admin',
-    'password' => 'msqlr0otp'
-);
+$conn = (array)Yaml::parse(__DIR__ . '/parameters.yml');
 
 // obtaining the entity manager
-$entityManager = EntityManager::create($conn, $config);
+$entityManager = EntityManager::create($conn['database'], $config);
