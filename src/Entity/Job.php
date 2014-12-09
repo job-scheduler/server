@@ -16,11 +16,6 @@ class Job
     /**
      * @Column(type="string")
      **/
-    protected $dbname;
-
-    /**
-     * @Column(type="string")
-     **/
     protected $command;
 
     /**
@@ -29,12 +24,12 @@ class Job
     protected $identifier;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string", nullable=true)
      **/
     protected $parameters;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string", nullable=true)
      **/
     protected $cronexpression;
 
@@ -44,24 +39,13 @@ class Job
     protected $scheduledstamp;
     
     /**
-     * @Column(type="integer")
+     * @Column(type="integer", nullable=true)
      **/
     protected $executionstamp;
 
     public function getId()
     {
         return $this->id;
-    }
-
-    public function setDbname($dbname)
-    {
-        $this->dbname = $dbname;
-        return $this;
-    }
-
-    public function getDbname()
-    {
-        return $this->dbname;
     }
 
     public function setCommand($command)
@@ -108,13 +92,13 @@ class Job
         return $this->cronexpression;
     }
 
-    public function setScheduleStamp($stamp)
+    public function setScheduledStamp($stamp)
     {
         $this->scheduledstamp = $stamp;
         return $this;
     }
 
-    public function getScheduleStamp()
+    public function getScheduledStamp()
     {
         return $this->scheduledstamp;
     }
