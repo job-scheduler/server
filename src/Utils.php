@@ -14,7 +14,7 @@ class Utils
     {
         if (self::$entityManager === null) {
             $isDevMode = true;
-            $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/../Entity"), $isDevMode);
+            $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/Entity"), $isDevMode);
             $conn = (array)Yaml::parse(__DIR__ . '/../config/parameters.yml');
             self::$entityManager = EntityManager::create($conn['database'], $config);
         }

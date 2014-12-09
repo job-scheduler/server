@@ -4,6 +4,7 @@
     "homepage": "https://github.com/linkorb/job-scheduler",
     "keywords": ["job", "schedule", "linkorb"],
     "type": "library",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Hongliang",
