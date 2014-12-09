@@ -48,6 +48,12 @@ class Job
         return $this->id;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     public function setCommand($command)
     {
         $this->command = $command;

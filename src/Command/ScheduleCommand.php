@@ -7,7 +7,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use JobScheduler\Model\Job;
+use JobScheduler\Entity\Job;
+use JobScheduler\Utils;
 
 class ScheduleCommand extends Command
 {
@@ -46,10 +47,19 @@ class ScheduleCommand extends Command
         $stamp = $input->getArgument('stamp');
         $parameters = $input->getOption('parameters');
 
-        $job = new Job($jobcommand, $identifier);
-        $job->setScheduledStamp($stamp)
+        $job = Utils::getJobByCommandAndIdentifier($jobcommand, $identifier);
+        if (!$job) {
+            $job = new Job();
+        }
+        $job->setCommand($jobcommand)
+            ->setIdentifier($identifier)
+            ->setScheduledStamp($stamp)
             ->setParameters($parameters)
-            ->save();
+        ;
+
+        $em = Utils::getEntityManager();
+        $em->persist($job);
+        $em->flush();
 
         $output->writeln('<info>Job scheduled:</info> Execute <fg=cyan>'.$jobcommand.'</fg=cyan> at <comment>'. date('l jS \of F Y h:i:s A', $stamp).'</comment>');
     }
