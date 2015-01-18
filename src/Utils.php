@@ -2,26 +2,37 @@
 
 namespace JobScheduler;
 
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\Yaml\Yaml;
 use JobScheduler\Entity\Job;
+use LinkORB\Component\DatabaseManager\DatabaseManager;
+use Doctrine\ORM\Tools\Setup as DoctrineSetup;
+use Doctrine\ORM\EntityManager;
 
 class Utils
 {
     public static $entityManager = null;
 
+    // TODO: Refactor this out
     public static function getEntityManager()
     {
         if (self::$entityManager === null) {
             $isDevMode = true;
-            $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/Entity"), $isDevMode);
+            /*
+            $config = DoctrineSetup::createAnnotationMetadataConfiguration(array(__DIR__."/Entity"), $isDevMode);
             $conn = (array)Yaml::parse(__DIR__ . '/../config/parameters.yml');
             self::$entityManager = EntityManager::create($conn['database'], $config);
+            */
+            $databasemanager = new DatabaseManager();
+            $dbal = $databasemanager->getDbalConnection('jobscheduler', 'default');
+            $isDevMode = true;
+            $ormconfig = DoctrineSetup::createAnnotationMetadataConfiguration(array(__DIR__."/Entity"), $isDevMode);
+            self::$entityManager =  EntityManager::create($dbal, $ormconfig);
+            
         }
         return self::$entityManager;
     }
-
+    
+    // TODO: Extract into service / repository
     public static function getJobByCommandAndIdentifier($command, $identifier)
     {
         $em = self::getEntityManager();
@@ -31,6 +42,7 @@ class Utils
         return $job;
     }
 
+    // TODO: Extract into service
     public static function getToExecuteJobs()
     {
         $now = time();
@@ -49,6 +61,7 @@ class Utils
         return $jobs;
     }
 
+    // TODO: Extract into service and worker
     public static function executeJob(Job $job)
     {
         $em = self::getEntityManager();

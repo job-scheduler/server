@@ -1,0 +1,32 @@
+{% extends "@Dashboard/layout.html.twig" %}
+
+{% block content %}
+<div class="container">
+    <h1>Jobs</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width: 10px;">ID</th>
+                <th style="width: 150px;">Queue</th>
+                <th>Command</th>
+                <th style="width: 150px;">Scheduled</th>
+                <th style="width: 150px;">State</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in jobs %}
+            <tr>
+                <td><a href="/jobs/{{ job.getId() }}">#{{ job.getKey() }}</a></td>
+                <td>{{ job.getQueue() }}</td>
+                <td>{{ job.getCommand() }}</td>
+                <td>{{ job.getScheduledStamp()|date("d/m/Y H:i") }}</td>
+                <td>{{ job.getState() }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

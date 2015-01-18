@@ -1,0 +1,33 @@
+frontpage:
+    path: /
+    defaults:  { _controller: JobScheduler\Server\Controller\DashboardController::indexAction }
+
+login:
+    path: /login
+    defaults:  { _controller: JobScheduler\Server\Controller\DashboardController::loginAction }
+
+jobs:
+    path: /jobs
+    defaults:  { _controller: JobScheduler\Server\Controller\DashboardController::jobsAction }
+
+jobs_view:
+    path: /jobs/{jobid}
+    defaults:  { _controller: JobScheduler\Server\Controller\DashboardController::jobsViewAction }
+
+
+
+api_v1:
+    path: /api/v1
+    defaults:  { _controller: JobScheduler\Server\Controller\ApiController::rootAction }
+
+api_v1_jobs_get:
+    path: /api/v1/jobs
+    defaults:  { _controller: JobScheduler\Server\Controller\ApiController::jobsGetAction }
+
+api_v1_jobs_item_get:
+    path: /api/v1/jobs/{jobid}
+    defaults:  { _controller: JobScheduler\Server\Controller\ApiController::jobsItemGetAction }
+
+api_v1_action_addjob:
+    path: /api/v1/_action/addjob
+    defaults:  { _controller: JobScheduler\Server\Controller\ApiController::actionAddJobAction }

@@ -1,9 +1,16 @@
-job-scheduler
-=============
+job-scheduler-server
+====================
 
-#### Command
-1. Create config/parameters.yml based on the config/parameters.yml.dist file.
+## Database configuration
+
+1. Create a database configuration file in /share/config/database/jobscheduler.conf
 2. Creating database schema
     vendor/bin/doctrine orm:schema-tool:create
-3. more command will see
-    vendor/bin/doctrine
+
+## Starting the server
+
+    php -S 0.0.0.0:8080 -t web/
+
+Now you can open http://localhost:8080 in your browser.
+
+The JSON REST API can be viewed here: http://localhost:8080/api/v1

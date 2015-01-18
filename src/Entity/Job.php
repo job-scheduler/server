@@ -1,6 +1,6 @@
 <?php
 
-namespace JobScheduler\Entity;
+namespace JobScheduler\Server\Entity;
 
 /**
  * @Entity @Table(name="job")
@@ -19,9 +19,14 @@ class Job
     protected $command;
 
     /**
+    * @Column(type="string")
+    **/
+    protected $queue;
+    
+    /**
      * @Column(type="string")
      **/
-    protected $identifier;
+    protected $reference;
 
     /**
      * @Column(type="string", nullable=true)
@@ -43,6 +48,14 @@ class Job
      **/
     protected $executionstamp;
 
+    public function getKey()
+    {
+        $hashids = new \Hashids\Hashids('somesalt');
+        
+        $key = $hashids->encode($this->id + 20000);
+        return $key;
+        
+    }
     public function getId()
     {
         return $this->id;
@@ -65,15 +78,26 @@ class Job
         return $this->command;
     }
 
-    public function setIdentifier($identifier)
+    public function setReference($reference)
     {
-        $this->identifier = $identifier;
+        $this->reference = $reference;
         return $this;
     }
-
-    public function getIdentifier()
+    
+    public function getReference()
     {
-        return $this->identifier;
+        return $this->reference;
+    }
+
+    public function setQueue($queue)
+    {
+        $this->queue = $queue;
+        return $this;
+    }
+    
+    public function getQueue()
+    {
+        return $this->queue;
     }
 
     public function setParameters($parameters)
@@ -118,5 +142,10 @@ class Job
     public function getExecutionStamp()
     {
         return $this->executionstamp;
+    }
+    
+    public function getState()
+    {
+        return 'Runnable';
     }
 }

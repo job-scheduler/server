@@ -17,6 +17,6 @@ use Symfony\Component\Console\Application;
 
 $application = new Application('JobScheduler', '0.0.1');
 $application->setCatchExceptions(true);
-$application->add(new \JobScheduler\Command\ScheduleCommand());
-$application->add(new \JobScheduler\Command\WorkerCommand());
+$application->add(new \JobScheduler\Server\Command\ScheduleCommand());
+$application->add(new \JobScheduler\Server\Command\WorkerCommand());
 $application->run();

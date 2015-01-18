@@ -1,14 +1,14 @@
 <?php
 
-namespace JobScheduler\Command;
+namespace JobScheduler\Server\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use JobScheduler\Entity\Job;
-use JobScheduler\Utils;
+use JobScheduler\Server\Entity\Job;
+use JobScheduler\Server\Utils;
 
 class ScheduleCommand extends Command
 {
@@ -55,6 +55,7 @@ class ScheduleCommand extends Command
             ->setIdentifier($identifier)
             ->setScheduledStamp($stamp)
             ->setParameters($parameters)
+            ->setQueue('example')
         ;
 
         $em = Utils::getEntityManager();

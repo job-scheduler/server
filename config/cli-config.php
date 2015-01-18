@@ -1,6 +1,6 @@
 <?php
 
-use JobScheduler\Utils;
+use JobScheduler\Server\Utils;
 
 $entityManager = Utils::getEntityManager();
 
